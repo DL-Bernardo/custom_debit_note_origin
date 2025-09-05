@@ -16,9 +16,9 @@ class AccountMove(models.Model):
         """Limpa o campo origin_invoice_id quando o cliente muda."""
         self.origin_invoice_id = False
 
-    @api.constrains('journal_id', 'origin_invoice_id')
-    def _check_origin_invoice_required(self):
-        """Validação para garantir que o campo Fatura de Origem seja preenchido com o diário ND."""
-        for record in self:
-            if record.journal_id and record.journal_id.code == 'ND' and not record.origin_invoice_id:
+    def action_post(self):
+        """Sobrescreve a validação de postagem para incluir a lógica personalizada."""
+        for move in self:
+            if move.journal_id and move.journal_id.code == 'ND' and not move.origin_invoice_id:
                 raise ValidationError("Com o diário 'ND Nota de Débito' selecionado, o campo 'Fatura de Origem' na nota de débito deve ser preenchido.")
+        return super(AccountMove, self).action_post()
