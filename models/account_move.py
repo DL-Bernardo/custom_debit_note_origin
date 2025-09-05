@@ -8,8 +8,6 @@ class AccountMove(models.Model):
         'account.move',
         string='Fatura de Origem',
         domain="[('move_type', '=', 'out_invoice'), ('partner_id', '=', partner_id), ('state', '=', 'posted')]",
-        readonly=True,
-        states={'draft': [('readonly', False)]},
         help="Selecione a fatura de origem associada ao cliente."
     )
 
