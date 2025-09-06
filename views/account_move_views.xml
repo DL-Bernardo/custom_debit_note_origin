@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="view_move_form_inherit_debit_note" model="ir.ui.view">
-        <field name="name">account.move.form.inherit.debit_note</field>
+    <record id="view_move_form_inherit_debitnote" model="ir.ui.view">
+        <field name="name">account.move.form.debitnote</field>
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_move_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='invoice_payment_term_id']" position="after">
+            <xpath expr="//sheet//field[@name='invoice_date']" position="after">
                 <field name="origin_invoice_id" invisible="journal_id.code != 'ND'" readonly="state != 'draft'" required="journal_id.code == 'ND'"/>
             </xpath>
         </field>
